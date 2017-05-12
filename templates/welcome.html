@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome {{username}}</title>
+</head>
+<body>
+    <!-- Extend base template here -->
+    {% extends "base.html" %}
+    {% block content %}
+        <!-- Display welcome message to user -->
+        <h2>Welcome, {{username}}!</h2>
+    {% endblock %}
+</body>
+</html>

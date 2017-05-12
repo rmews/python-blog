@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+    <!-- Extend base template here -->
+    {% extends "base.html" %}
+    {% block content %}
+    <!-- Display form for registration using bootstrap classes -->
+    <form class="form-horizontal" method="post">
+        <h2 class="form-signin-heading">Sign Up</h2>
+        <!-- Form styling to display if form throws an error on Username -->
+        {% if error_username %}
+            <div class="form-group has-error has-feedback">
+                <label for="inputError1" class="col-md-2 control-label">Username</label>
+                <div class="col-md-10">
+                    <!-- Value parameter retains the username value if error is thrown -->
+                    <input type="text" class="form-control" id="inputError1" aria-describedby="inputError1Status" name="username" value="{{username}}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError1Status" class="sr-only">(error)</span>
+                    <!-- This displays the error message -->
+                    <span id="helpBlock1" class="help-block">{{error_username}}</span>
+                </div>
+            </div>
+        <!-- Initial form rendered on Username when no error is thrown -->
+        {% else %}
+            <div class="form-group">
+                <label for="inputText1" class="col-md-2 control-label">Username</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="inputText1" placeholder="Username" name="username" value="{{username}}">
+                </div>
+            </div>
+        {% endif %}
+        <!-- Form styling to display if form throws an error on Password -->
+        {% if error_password %}
+            <div class="form-group has-error has-feedback">
+                <label for="inputError2" class="col-md-2 control-label">Password</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" id="inputError2" aria-describedby="inputError2Status" name="password">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                    <!-- This displays the error message -->
+                    <span id="helpBlock2" class="help-block">{{error_password}}</span>
+                </div>
+            </div>
+        <!-- Initial form rendered on Password when no error is thrown -->
+        {% else %}
+            <div class="form-group">
+                <label for="inputPassword1" class="col-md-2 control-label">Password</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password" name="password">
+                </div>
+            </div>
+        {% endif %}
+        <!-- Form styling to display if form throws an error on Verify Password -->
+        {% if error_verify %}
+            <div class="form-group has-error has-feedback">
+                <label for="inputError3" class="col-md-2 control-label">Verify Password</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" id="inputError3" aria-describedby="inputError3Status" name="verify">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError3Status" class="sr-only">(error)</span>
+                    <!-- This displays the error message -->
+                    <span id="helpBlock3" class="help-block">{{error_verify}}</span>
+                </div>
+            </div>
+        <!-- Initial form rendered on Verify Password when no error is thrown -->
+        {% else %}
+            <div class="form-group">
+                <label for="inputPassword2" class="col-md-2 control-label">Verify Password</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="Confirm Password" name="verify">
+                </div>
+            </div>
+        {% endif %}
+        <!-- Form styling to display if form throws an error on Email -->
+        {% if error_email %}
+            <div class="form-group has-error has-feedback">
+                <label for="inputError4" class="col-md-2 control-label">Email</label>
+                <div class="col-md-10">
+                    <!-- Value parameter retains the email value if error is thrown -->
+                    <input type="text" class="form-control" id="inputError4" aria-describedby="inputError4Status" name="email" value="{{email}}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError4Status" class="sr-only">(error)</span>
+                    <!-- This displays the error message -->
+                    <span id="helpBlock4" class="help-block">{{error_email}}</span>
+                </div>
+            </div>
+        <!-- Initial form rendered on Email when no error is thrown -->
+        {% else %}
+            <div class="form-group">
+                <label for="inputEmail1" class="col-md-2 control-label">Email</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="inputEmail1" placeholder="Email" name="email" value="{{email}}">
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+            </div>
+        </div>
+    </form>
+    {% endblock %}
+</body>
+</html>
