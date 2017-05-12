@@ -1,13 +1,22 @@
-<div class="post">
-    <div class="post-heading">
-        <div class="post-title">
-            {{ p.subject }}
-        </div>
-        <div class="post-date">
-            {{ p.created.strftime("%b %d, %Y") }}
-        </div>
+<!-- Display blog styling using Bootstrap classes -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <!-- Links to the individual blog post page -->
+        <h3><a href="/{{p.key().id()}}">{{p.subject}}</a></h3>
+        <!-- Display when post was created and by which user -->
+        <p>submitted {{p.created.strftime("%b %d, %Y")}} by {{author}}</p>
     </div>
-    <div class="post-content">
-        {{ p._render_text | safe }}
+    <!-- Render blog content -->
+    <div class="panel-body">
+        <p>{{p._render_text | safe}}</p>
+    </div>
+    <!-- Display like and unlike buttons; clicking these will redirect to blog post page -->
+    <div class="panel-footer">
+        <a class="btn btn-default btn-sm" href="/{{p.key().id()}}/like" role="button">
+            <span class="glyphicon glyphicon-thumbs-up"> {{p.likes}}</span>
+        </a>
+        <a class="btn btn-default btn-sm" href="/{{p.key().id()}}/unlike" role="button">
+            <span class="glyphicon glyphicon-thumbs-down"> {{p.unlike}}</span>
+        </a>
     </div>
 </div>

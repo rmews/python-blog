@@ -1,5 +1,63 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{post.subject}}</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
 
-{% block content %}
-    {{ post.render() | safe }}
-{% endblock %}
+    <!-- Render blog content. -->
+    {% if user %}
+        {{post.render(user.key().id()) | safe}}
+    {% else %}
+        {{post.render(None) | safe}}
+    {% endif %}
+
+    <!-- Display comment button if user is logged-in. -->
+    {% if user %}
+        <a class="btn btn-default btn-sm" href="/{{post.key().id()}}/addcomment/{{user.key().id()}}" role="button">
+            <span class="glyphicon glyphicon-comment"> Comment</span>
+        </a>
+    {% endif %}
+
+    <!-- If user is logged-in and post was made by user, display edit and delete buttons. -->
+    {% if user and user.key().id() == post.user_id %}
+        <a class="btn btn-default btn-sm" href="/{{post.key().id()}}/edit" role="button">
+            <span class="glyphicon glyphicon-pencil"> Edit</span>
+        </a>
+        <a class="btn btn-default btn-sm" href="/{{post.key().id()}}/delete/{{post.user_id}}" role="button">
+            <span class="glyphicon glyphicon-trash"> Delete</span>
+        </a>
+    {% endif %}
+    <br>
+    <br>
+    <div>
+        <h3>Comments</h3>
+        <!-- For loop to display comments -->
+        {% for c in comments %}
+            <div class="well">
+                <!-- Each comment will show user who made comment and when it was created -->
+                <h5>Comment by {{c.user_name}} on {{c.created.strftime("%b %d, %Y")}}</h5>
+            <div>
+                <!-- Display the comment content -->
+                <p>{{c.content}}</p>
+            </div>
+            <div>
+                <!-- If user is logged-in and and comment was made by user, display edit and delete buttons -->
+                {% if user and user.key().id() == c.user_id %}
+                    <a class="btn btn-default btn-sm" href="/{{post.key().id()}}/{{c.user_id}}/editcomment/{{c.key().id()}}" role="button">
+                        <span class="glyphicon glyphicon-pencil"> Edit</span>
+                    </a>
+                    <a class="btn btn-default btn-sm" href="/{{post.key().id()}}/{{c.user_id}}/deletecomment/{{c.key().id()}}" role="button">
+                        <span class="glyphicon glyphicon-trash"> Delete</span>
+                    </a>
+                {% endif %}
+            </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+</html>
